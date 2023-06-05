@@ -1,0 +1,37 @@
+body{
+  background-color: blue;   
+}
+h1 {
+   font-style:normal;
+    color:darkslateblue;
+    font-weight:bolder;
+   
+}
+  
+.search-box
+{
+    
+    height:100px;
+    width:500px;
+     
+}
+.sb1 {
+  margin-left: -130px;
+}
+.sb2 {
+    margin-top:-500px;
+     
+}
+.menu{
+
+    list-style:none;
+    margin-left:970px;
+}
+
+button:hover {
+    transition:all 1s;
+  transform: scale(1.5);
+}
+#searchbox{
+    
+}
