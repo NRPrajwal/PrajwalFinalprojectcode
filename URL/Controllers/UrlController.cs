@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Azure;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
@@ -8,6 +10,7 @@ namespace URL.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+        [EnableCors("AllowAngularFrontend")]
     public class UrlController : ControllerBase
     {
 
@@ -20,27 +23,35 @@ namespace URL.Controllers
             _context = context;
             //  _configuration= httpContextAccessor;
         }
+
         // private const string BaseUrl = "https://e";
         private const string AllowedCharacters = "abcdefghijklmnopqrstuvwzyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         private const int ShortUrlLength = 6;
         [HttpPost]
         [Route("GetLongUrl")]
-        public async Task<ActionResult<string>> GetLongUrl(string shortenUrl)
+        public async Task<ActionResult<string>> GetLongUrl(Request url)
         {
             // shirt url
 
-            var url1 = await _context.Urls.FirstOrDefaultAsync(u => u.shortUrl == shortenUrl);
+            var url1 = await _context.Urls.FirstOrDefaultAsync(u => u.shortUrl ==  url.shortUrl);
             if (url1 == null)
             {
                 return NotFound();
             }
-            return Redirect(url1.OriginalUrl);
+            var response = new LongUrlResponse
+            {
+                LongUrl = url1.OriginalUrl
+            };
+
+            return Ok(response);
+           // return Redirect(url1.OriginalUrl);
             ////orginalUrl from shorturl
 
             // Response.Redirect(orginalUrl);
             //  return Ok();
         }
 
+        
 
         //[HttpPost]
         //[Route("ShortenUrl")]
@@ -123,5 +134,10 @@ namespace URL.Controllers
     internal class ShortURlResponse
     {
         public string ShortUrl { get; set; }
+       
+    }
+    internal class LongUrlResponse
+    {
+        public string LongUrl { get; set; }
     }
 }

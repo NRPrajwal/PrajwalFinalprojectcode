@@ -32,6 +32,20 @@ button:hover {
     transition:all 1s;
   transform: scale(1.5);
 }
-#searchbox{
-    
+.shortURl-button{
+    background-color:aqua;
+    color:Background;
+    padding:10px 20px;
+    border:none;
+    border-radius:5px;
+    font-size:16px;
+    cursor:copy;
+}
+.shortURl-button:hover{
+    background-color:#e53935;
+}
+.shortURl-button:active{
+    background-color:#c62828;
+}
+#searchbox {
 }
