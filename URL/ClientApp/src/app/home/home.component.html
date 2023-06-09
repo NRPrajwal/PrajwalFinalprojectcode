@@ -12,12 +12,17 @@
       <div class="search-box">
         <input class="sb1" type="text" [(ngModel)]="originalUrl" placeholder="Paste your URL here" id="searchbox" style="width:500px; height:60px; border-radius:10px">
         <button style="width: 60px; height: 60px; margin-right: 10px; background-color: cornflowerblue; border-radius: 10px" (click)="shortenUrl()">Short</button>
+        <div class="search-box">
+          <input class ="sb1" type="text" [(ngModel)]="shortUrl" placeholder="Paste the short Url to redirect"id="searchbox" style="width:500px; height:60px; border-radius:10px" />
+         
+        </div>
         <div *ngIf="shortUrl">
-          <p>Short URL: <a [href]="shortUrl">{{ shortUrl }}</a></p>
+         <!-- <p>Short URL: <a [href]="shortUrl" (click)="redirectToOrginalUrl()" target="_blank">{{ shortUrl }}</a></p>-->
           <button class="shortURl-button" (click)="redirectToOrginalUrl()">{{ shortUrl }}</button>
         
         </div>
       </div>
+
     </div>
   </div>
   

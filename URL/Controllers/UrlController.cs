@@ -100,7 +100,7 @@ namespace URL.Controllers
 
             // await _context.SaveChangesAsync();
 
-            var shortUrl = GenerateShortUrl(orginalUrl.OriginalUrl.Scheme + "://" + orginalUrl.OriginalUrl.Host);
+            var shortUrl = GenerateShortUrl(orginalUrl.OriginalUrl.Scheme + "://" + orginalUrl.OriginalUrl.Host,44404);
             //  var shortUrl = GenerateShortUrl(orginalUrl.Scheme +);
             url.shortUrl = shortUrl;
             await _context.SaveChangesAsync();
@@ -109,23 +109,25 @@ namespace URL.Controllers
                 ShortUrl = shortUrl
             };
             return Ok(response);
+
             // var x = orginalUrl.Host;
             // return Ok(x);
 
         }
-        private string GenerateShortUrl(string BaseUrl)
+        private string GenerateShortUrl(string BaseUrl,int port)
         {
 
             var random = new Random();
             var shortUrl = new StringBuilder();
             var x = HttpContext.Request.Scheme + "://" + HttpContext.Request.Host;
+            var angular = $"{HttpContext.Request.Scheme}://localhost:44404";
             // HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
             for (int i = 0; i < ShortUrlLength; i++)
             {
                 int randomIndex = random.Next(0, AllowedCharacters.Length);
                 shortUrl.Append(AllowedCharacters[randomIndex]);
             }
-            return x + "/" + shortUrl.ToString();
+            return $"{angular}/{x}/{shortUrl.ToString()}";
         }
 
 

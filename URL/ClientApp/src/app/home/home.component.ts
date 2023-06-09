@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+
 
 
 
@@ -58,8 +59,17 @@ export class HomeComponent {
             const r = JSON.stringify(response)
             const originalUrl = JSON.stringify(response.originalUrl);
             console.log("new" + originalUrl)
-            window.open(r.substring(12,r.length-2));
+            window.open(r.substring(12,r.length-2),'_blank');
 
+          },
+          (error: HttpErrorResponse) => {
+            if (error.status === 404) {
+              alert('Orginal Url is not found, Please short the Orginal url once')
+
+            }
+            else {
+              alert('An unknow error has occurred, please refresh the page')
+            }
           }
         );
 
